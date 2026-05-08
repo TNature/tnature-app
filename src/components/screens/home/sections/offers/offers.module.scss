@@ -1,0 +1,15 @@
+@import "@/styles/scss/variables";
+
+.offers {
+  padding: 40px 0;
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+
+    @media (max-width: 991px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}

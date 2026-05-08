@@ -1,0 +1,84 @@
+.BannerSection {
+  padding: 40px 0;
+  .wrap {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 24px;
+    .box {
+      background-color: rgba(255, 0, 0, 0.322);
+      height: 100%;
+      border-radius: 20px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      align-items: center;
+      padding: 32px;
+      gap: 50px;
+      overflow: hidden;
+
+      .text {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        h4 {
+          font-weight: normal;
+
+          font-size: 2.5rem;
+        }
+
+        h1 {
+          font-weight: 600;
+          font-size: 3rem;
+        }
+
+        p {
+          color: $color_text_grey;
+        }
+      }
+
+      .img {
+        transform: rotate(20deg);
+      }
+    }
+
+    .right {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      .box {
+        height: fit-content;
+
+        h4 {
+          font-weight: normal;
+
+          font-size: 1.5rem;
+        }
+
+        h1 {
+          font-weight: 600;
+          font-size: 2rem;
+        }
+
+        p {
+          color: $color_text_grey;
+        }
+      }
+    }
+
+    @include respond-below(md) {
+      grid-template-columns: 1fr;
+
+      .box {
+        display: flex;
+        flex-direction: column;
+        height: fit-content !important;
+
+        .img {
+          img {
+            height: 350px;
+          }
+        }
+      }
+    }
+  }
+}

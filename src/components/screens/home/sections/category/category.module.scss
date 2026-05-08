@@ -1,0 +1,112 @@
+.category {
+  padding: 80px 0;
+  background-color: #fff;
+
+  .categoryGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 15px;
+      margin-top: 30px;
+    }
+  }
+
+  .categoryCard {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    cursor: pointer;
+
+    &:hover {
+
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+
+      .image {
+        transform: scale(1.1);
+      }
+
+      .exploreBtn {
+        background-color: $color_primary_1;
+        color: white !important;
+      }
+    }
+
+    .imageWrapper {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      overflow: hidden;
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      @media (max-width: 768px) {
+        height: 180px;
+      }
+
+      .image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 30px;
+        transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+        @media (max-width: 768px) {
+          padding: 20px;
+        }
+      }
+    }
+
+    .content {
+      padding: 25px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+
+      @media (max-width: 768px) {
+        padding: 15px;
+        gap: 10px;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: $color_b1;
+        margin: 0;
+
+        @media (max-width: 768px) {
+          font-size: 1rem;
+        }
+      }
+
+      .exploreBtn {
+        display: inline-block;
+        padding: 8px 24px;
+        border-radius: 30px;
+        border: 1px solid $color_primary_1;
+        color: $color_primary_1;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+
+        @media (max-width: 768px) {
+          padding: 6px 18px;
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+}

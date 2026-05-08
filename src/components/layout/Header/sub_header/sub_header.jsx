@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import CustomContainer from "@/components/ui/custom_container/custom_container";
 import styles from "./sub_header.module.scss";
 import Link from "next/link";
@@ -10,8 +11,8 @@ import Searchbar from "../search_bar/search_bar";
 import { CATEGORIES } from "@/constants/products";
 
 const SubHeader = () => {
+  const router = useRouter();
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
-
   const [showSearchbar, setShowSearchbar] = useState(false);
 
   return (
@@ -32,7 +33,7 @@ const SubHeader = () => {
                 <ul className={styles.dropdownList}>
                   {CATEGORIES.map((cat, index) => (
                     <li key={index} className={styles.dropdownItem}>
-                      <Link href={`/category/${cat.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{cat}</Link>
+                      <Link href={`/shop?category=${encodeURIComponent(cat)}`}>{cat}</Link>
                     </li>
                   ))}
                 </ul>
@@ -43,7 +44,7 @@ const SubHeader = () => {
           <nav className={styles.nav}>
             <ul className={styles.navList}>
               {PAGES.map((link, index) => (
-                <li key={index} className={styles.navItem}>
+                <li key={index} className={`${styles.navItem} ${router.pathname === link.href ? styles.active : ""}`}>
                   <Link href={link.href || "#"}>
                     {link.title} {link.dropdown && <ChevronDown className={styles.dropdownIcon} />}
                   </Link>

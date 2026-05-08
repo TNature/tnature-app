@@ -121,6 +121,7 @@
       border-bottom: 2px solid $color_text_grey2;
 
       &:hover,
+      &.active,
       &.activeDropdownParent {
         color: white !important;
         background: $color_primary_1;

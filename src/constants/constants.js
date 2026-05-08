@@ -13,4 +13,10 @@ export const CATEGORIES = [
   { title: "Healthy Cookies", href: "/category/healthy-cookies" },
 ];
 
+export const LEGAL_PAGES = [
+  { title: "Terms and Conditions", href: "/terms-and-conditions" },
+  { title: "Privacy Policy", href: "/privacy-policy" },
+  { title: "Refund Policy", href: "/refund-policy" },
+];
+
 

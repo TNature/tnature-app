@@ -9,7 +9,8 @@ import {
   Youtube,
   CaretRightFill,
 } from "react-bootstrap-icons";
-import { PAGES, CATEGORIES } from "@/constants/constants";
+import { PAGES, LEGAL_PAGES } from "@/constants/constants";
+import { CATEGORIES } from "@/constants/products";
 import { CONTACT_DETAILS } from "@/constants/conatct";
 import FONTS from "@/styles/fonts";
 
@@ -74,6 +75,14 @@ const Footer = () => {
                   </Link>
                 </li>
               ))}
+              <hr style={{ margin: "10px 0", opacity: 0.1 }} />
+              {LEGAL_PAGES.map((page) => (
+                <li key={page.title}>
+                  <Link href={page.href || "#"}>
+                    <CaretRightFill className={styles.bulletIcon} /> {page.title}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </Col>
 
@@ -84,9 +93,9 @@ const Footer = () => {
 
             <ul className={styles.linkList}>
               {CATEGORIES.map((cat) => (
-                <li key={cat.title}>
-                  <Link href={cat.href || "#"}>
-                    <CaretRightFill className={styles.bulletIcon} /> {cat.title}
+                <li key={cat}>
+                  <Link href={`/shop?category=${encodeURIComponent(cat)}`}>
+                    <CaretRightFill className={styles.bulletIcon} /> {cat}
                   </Link>
                 </li>
               ))}

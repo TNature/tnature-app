@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import {
   ChevronDown,
   EnvelopeAtFill,
@@ -18,6 +19,7 @@ import FONTS from "@/styles/fonts";
 
 
 const NavItem = ({ item, setShowDrawer }) => {
+  const router = useRouter();
   const [showDropDown, setShowDropDown] = useState(false);
 
   if (item.dropdown) {
@@ -62,6 +64,7 @@ const NavItem = ({ item, setShowDrawer }) => {
         onClick={() => {
           setShowDrawer(false);
         }}
+        className={router.pathname === item.href ? styles.active : ""}
       >
         {item.title}
       </Link>

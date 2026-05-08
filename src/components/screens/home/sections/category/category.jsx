@@ -24,7 +24,7 @@ const CategorySection = () => {
         <div className={styles.categoryGrid}>
           {categoryData.map((cat) => (
             <Link
-              href={`/category/${cat.slug}`}
+              href={`/shop?category=${encodeURIComponent(cat.name)}`}
               key={cat.id}
               className={styles.categoryCard}
               data-aos="fade-up"

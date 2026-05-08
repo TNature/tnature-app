@@ -1,0 +1,137 @@
+.aboutPage {
+  padding-bottom: 80px;
+
+  .heroSection {
+    background: linear-gradient(135deg, rgba($color_primary_1, 0.05) 0%, rgba(255, 255, 255, 1) 100%);
+    padding: 100px 0;
+    text-align: center;
+    border-bottom: 1px solid rgba($color_primary_1, 0.1);
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: $color_b1;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.25rem;
+      color: #666;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  }
+
+  .contentSection {
+    padding: 80px 0;
+
+    .storyGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+
+      @media (max-width: 992px) {
+        grid-template-columns: 1fr;
+      }
+
+      .imageWrapper {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+
+        img {
+          width: 100%;
+          height: auto;
+          display: block;
+        }
+      }
+
+      .textContent {
+        h2 {
+          font-size: 2.5rem;
+          font-weight: 700;
+          color: $color_b1;
+          margin-bottom: 25px;
+        }
+
+        p {
+          font-size: 1.1rem;
+          line-height: 1.8;
+          color: #555;
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+
+  .valuesSection {
+    background-color: $color_grey_4;
+    padding: 80px 0;
+
+    .sectionTitle {
+      text-align: center;
+      margin-bottom: 60px;
+
+      h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+      }
+    }
+
+    .valuesGrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+
+      @media (max-width: 992px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+      }
+
+      .valueCard {
+        background: #fff;
+        padding: 40px;
+        border-radius: 15px;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+
+        &:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .iconWrapper {
+          width: 70px;
+          height: 70px;
+          background: rgba($color_primary_1, 0.1);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto 25px;
+          color: $color_primary_1;
+          font-size: 2rem;
+        }
+
+        h3 {
+          font-size: 1.5rem;
+          font-weight: 700;
+          margin-bottom: 15px;
+          color: $color_b1;
+        }
+
+        p {
+          color: #777;
+          line-height: 1.6;
+        }
+      }
+    }
+  }
+}

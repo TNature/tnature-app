@@ -12,7 +12,7 @@ const OffersSection = () => {
             tag="Upto 25% Off"
             title="Pure Forest Honey"
             description="Experience the natural sweetness of our sustainably harvested forest honey."
-            image="/products/malai then (Hill Honey).png"
+            image="/products/Honey Products/hill-honey.png"
             bgColor="#f9ebe7"
             aosDelay={0}
           />
@@ -20,7 +20,7 @@ const OffersSection = () => {
             tag="Upto 25% Off"
             title="Healthy Millet Cookies"
             description="Our traditional millet cookies are the perfect healthy snack for your family."
-            image="/products/millet cookie.png"
+            image="/products/Millet Cookies/millet-ghee-cookies.png"
             bgColor="#e6f3fa"
             aosDelay={150}
           />

@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import styles from "./about.module.scss";
 import CustomContainer from "@/components/ui/custom_container/custom_container";
 import FONTS from "@/styles/fonts";
@@ -21,7 +22,13 @@ const AboutScreen = () => {
         <CustomContainer lg>
           <div className={styles.storyGrid}>
             <div className={styles.imageWrapper} data-aos="fade-right">
-              <img src="/products/Honey Products/hill-honey-500g.jpeg" alt="Natural Purity" />
+              <Image 
+                src="/products/Honey Products/hill-honey-500g.jpeg" 
+                alt="Natural Purity" 
+                width={600} 
+                height={400} 
+                className={styles.image}
+              />
             </div>
             <div className={styles.textContent} data-aos="fade-left">
               <h2 className={FONTS.font3}>The Jaishree Foods Story</h2>
@@ -78,7 +85,7 @@ const AboutScreen = () => {
             <div className={styles.textContent} data-aos="fade-right">
               <h2 className={FONTS.font3}>Our Promise to You</h2>
               <p>
-                When you choose Jaishree Foods, you're not just buying a product; you're investing in your health
+                When you choose Jaishree Foods, you&apos;re not just buying a product; you&apos;re investing in your health
                 and supporting a ecosystem of sustainable agriculture.
               </p>
               <div style={{ display: 'flex', gap: '20px', marginTop: '30px' }}>
@@ -97,7 +104,13 @@ const AboutScreen = () => {
               </div>
             </div>
             <div className={styles.imageWrapper} data-aos="fade-left">
-              <img src="/products/Millet Laddu/pearl-millet-laddu-box.jpeg" alt="Quality Promise" />
+              <Image 
+                src="/products/Millet Laddu/pearl-millet-laddu-box.jpeg" 
+                alt="Quality Promise" 
+                width={600} 
+                height={400} 
+                className={styles.image}
+              />
             </div>
           </div>
         </CustomContainer>

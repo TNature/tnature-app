@@ -18,7 +18,7 @@ const ContactScreen = () => {
           <h1 className={FONTS.font3} data-aos="fade-up" data-aos-delay="200">Get in Touch</h1>
           <p data-aos="fade-up" data-aos-delay="400">
             Have a question about our products or want to know more about our journey? 
-            We'd love to hear from you.
+            We&apos;d love to hear from you.
           </p>
         </CustomContainer>
       </section>

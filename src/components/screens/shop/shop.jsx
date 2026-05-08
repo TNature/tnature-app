@@ -109,7 +109,7 @@ const ShopScreen = () => {
           ) : (
             <div className={styles.noResults}>
               <h3>No products found</h3>
-              <p>Try adjusting your search or filter to find what you're looking for.</p>
+              <p>Try adjusting your search or filter to find what you&apos;re looking for.</p>
             </div>
           )}
         </main>

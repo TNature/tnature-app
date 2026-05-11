@@ -14,6 +14,13 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   }
 
+  .productLink {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+
   .imageWrapper {
     position: relative;
     border-radius: 8px;
@@ -75,17 +82,26 @@
     flex-direction: column;
     padding: 0 5px 5px 5px;
 
-    .title {
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: #333;
-      margin: 0 0 12px 0;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      line-height: 1.3;
+    a {
+      text-decoration: none;
+
+      .title {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #333;
+        margin: 0 0 12px 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        line-height: 1.3;
+
+        &:hover {
+          color: $color_primary_1;
+        }
+      }
     }
+
 
     .bottomSection {
       display: flex;

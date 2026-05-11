@@ -1,9 +1,11 @@
 .BannerSection {
   padding: 40px 0;
+
   .wrap {
     display: grid;
     grid-template-columns: 1.5fr 1fr;
     gap: 24px;
+
     .box {
       background-color: rgba(255, 0, 0, 0.322);
       height: 100%;
@@ -37,7 +39,7 @@
       }
 
       .img {
-        transform: rotate(20deg);
+        transform: rotate(10deg);
       }
     }
 
@@ -45,6 +47,7 @@
       display: flex;
       flex-direction: column;
       gap: 24px;
+
       .box {
         height: fit-content;
 

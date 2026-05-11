@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./product_card.module.scss";
 import Image from "next/image";
 import { Heart, Star, Bag, HeartFill } from "react-bootstrap-icons";
+import Link from "next/link";
 
 const ProductCard = ({ product }) => {
 
@@ -18,16 +19,20 @@ const ProductCard = ({ product }) => {
               <Heart />
           }
         </button>
-        <Image
-          src={product.image}
-          alt={product.name}
-          width={250}
-          height={250}
-          className={styles.image}
-        />
+        <Link href={`/product/${product.id}`} className={styles.productLink}>
+          <Image
+            src={product.image}
+            alt={product.name}
+            width={250}
+            height={250}
+            className={styles.image}
+          />
+        </Link>
       </div>
       <div className={styles.content}>
-        <h3 className={styles.title}>{product.name}</h3>
+        <Link href={`/product/${product.id}`}>
+          <h3 className={styles.title}>{product.name}</h3>
+        </Link>
 
         <div className={styles.bottomSection}>
           <div className={styles.details}>
@@ -51,3 +56,4 @@ const ProductCard = ({ product }) => {
 };
 
 export default ProductCard;
+

@@ -11,6 +11,7 @@ import { Image } from "react-bootstrap";
 import Link from "next/link";
 import Footer from "./Footer/Footer";
 import Cart from "./Cart/Cart";
+import { useRouter } from "next/router";
 
 const EnquireButton = ({ setShow }) => {
   return (
@@ -49,7 +50,18 @@ const Layout = ({ children }) => {
   //   }
   // }, [])
 
+  const router = useRouter();
 
+  const isAuthPage = router.pathname.startsWith("/auth");
+
+
+  if (isAuthPage) {
+    return (
+      <div className={styles.Layout}>
+        {children}
+      </div>
+    )
+  }
 
   return (
     <div className={styles.Layout}>

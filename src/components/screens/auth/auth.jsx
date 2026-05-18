@@ -56,7 +56,7 @@ const AuthScreen = () => {
 
   return (
     <div className={styles.AuthScreen}>
-      <CustomContainer lg>
+      <CustomContainer >
         <div className={styles.wrapper} data-aos="fade-up">
           <Row className="g-0">
             <Col lg={6} className={styles.infoCol}>

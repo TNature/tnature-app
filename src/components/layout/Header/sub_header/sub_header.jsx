@@ -33,7 +33,11 @@ const SubHeader = () => {
                 <ul className={styles.dropdownList}>
                   {CATEGORIES.map((cat, index) => (
                     <li key={index} className={styles.dropdownItem}>
-                      <Link href={`/shop?category=${encodeURIComponent(cat)}`}>{cat}</Link>
+                      <Link href={`/shop?category=${encodeURIComponent(cat)}`}
+                        onClick={() => {
+                          setShowCategoryDropdown(false)
+                        }}
+                      >{cat}</Link>
                     </li>
                   ))}
                 </ul>

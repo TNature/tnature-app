@@ -14,17 +14,19 @@ const BestSellersSection = () => {
 
   return (
     <section className={styles.bestSellers}>
-      <CustomContainer>
-        <SectionHeading head={"Our Best Sellers"} />
-        <div className={styles.productGrid}>
-          {bestSellers.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-        <div className={styles.btnWrapper}>
-          <Link href="/products" className={styles.browseBtn}>
-            Browse All Products
-          </Link>
+      <CustomContainer lg>
+        <div className={styles.containerWrapper}>
+          <SectionHeading head={"Our Best Sellers"} />
+          <div className={styles.productGrid}>
+            {bestSellers.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+          <div className={styles.btnWrapper}>
+            <Link href="/shop" className={styles.browseBtn}>
+              Browse All Products
+            </Link>
+          </div>
         </div>
       </CustomContainer>
     </section>

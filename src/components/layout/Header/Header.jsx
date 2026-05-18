@@ -143,7 +143,7 @@ export const RightButtons = ({ setShowSearchbar }) => {
               <Dropdown.Menu align="end">
                 <Dropdown.Header>Hi, {user.user_metadata?.full_name || 'User'}</Dropdown.Header>
                 <Dropdown.Item href="/user">My Profile</Dropdown.Item>
-                <Dropdown.Item href="/orders">My Orders</Dropdown.Item>
+
                 <Dropdown.Divider />
                 <Dropdown.Item onClick={signOut}>Logout</Dropdown.Item>
               </Dropdown.Menu>
@@ -182,7 +182,9 @@ const Header = () => {
           <div className={styles.right}>
             <div className={styles.box}>
               <p>For Support?</p>
-              <h3 className={FONTS.font2}>{CONTACT_DETAILS.phone1.text}</h3>
+              <h3 className={FONTS.font2}>
+                <Link href={`tel:${CONTACT_DETAILS.phone1.number}`}>{CONTACT_DETAILS.phone1.text}</Link>
+              </h3>
             </div>
             <div>
               <div className={styles.btns}>
@@ -195,7 +197,7 @@ const Header = () => {
                     <Dropdown.Menu align="end">
                       <Dropdown.Header>Hi, {user.user_metadata?.full_name || 'User'}</Dropdown.Header>
                       <Dropdown.Item href="/user">My Profile</Dropdown.Item>
-                      <Dropdown.Item href="/orders">My Orders</Dropdown.Item>
+
                       <Dropdown.Divider />
                       <Dropdown.Item onClick={signOut}>Logout</Dropdown.Item>
                     </Dropdown.Menu>

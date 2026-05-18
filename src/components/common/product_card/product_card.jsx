@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./product_card.module.scss";
 import { Image } from "react-bootstrap";
-import { Heart, Star, Bag, HeartFill, CheckLg } from "react-bootstrap-icons";
+import { Heart, Star, Bag, HeartFill, CheckLg, StarFill, StarHalf } from "react-bootstrap-icons";
 import Link from "next/link";
 import { useAppContext } from "@/context/AppContext";
 
@@ -42,11 +42,31 @@ const ProductCard = ({ product }) => {
           <div className={styles.details}>
             <span className={styles.price}>₹{product.price}</span>
             <div className={styles.rating}>
-              <Star className={styles.starIcon} />
-              <Star className={styles.starIcon} />
-              <Star className={styles.starIcon} />
-              <Star className={styles.starIcon} />
-              <Star className={styles.starIcon} />
+              {
+                Array.from({ length: 5 }).map((_, index) => {
+                  const isFilled = index < Math.floor(product.rating);
+                  const isHalf = index === Math.floor(product.rating) && product.rating % 1 !== 0;
+
+                  if (isFilled) {
+                    return <StarFill
+                      key={index} className={styles.starIcon}
+                      color={"#f0c14b"}
+                    />
+                  }
+                  if (isHalf) {
+                    return <StarHalf
+                      key={index} className={styles.starIcon}
+                      color={"#f0c14b"}
+                    />
+                  }
+
+                  return (
+                    <Star key={index} className={styles.starIcon}
+                      color={"#e0e0e0"}
+                    />
+                  )
+                })
+              }
             </div>
           </div>
 

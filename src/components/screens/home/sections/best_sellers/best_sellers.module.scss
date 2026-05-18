@@ -1,14 +1,20 @@
-@import "@/styles/scss/variables";
-
 .bestSellers {
   padding: 80px 0;
   background-color: #fdfdfd;
+
+  .containerWrapper {
+
+    border: 1px solid #e0e0e0;
+    padding: 30px;
+    border-radius: 12px;
+  }
 
   .productGrid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 30px;
     margin-top: 50px;
+
 
     @media (max-width: 1200px) {
       grid-template-columns: repeat(3, 1fr);
@@ -53,4 +59,3 @@
     }
   }
 }
-

@@ -1,5 +1,3 @@
-@import "@/styles/scss/variables";
-
 .productCard {
   background: #fff;
   border-radius: 12px;
@@ -164,6 +162,7 @@
 
         &.isInCart {
           background-color: #2d5a27;
+
           svg {
             color: white;
           }

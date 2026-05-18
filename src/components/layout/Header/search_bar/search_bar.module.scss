@@ -1,3 +1,7 @@
+.SearchWrapper {
+  position: relative;
+}
+
 .Searchbar {
   background-color: $color_grey_1;
   display: flex;
@@ -24,5 +28,64 @@
     }
 
     cursor: pointer;
+  }
+}
+
+.Dropdown {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  z-index: 100;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  .DropdownItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: inherit;
+    border-bottom: 1px solid #f1f1f1;
+    transition: background 0.2s;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: #f8f9fa;
+    }
+
+    img {
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .Details {
+      display: flex;
+      flex-direction: column;
+
+      .Name {
+        font-weight: 500;
+        font-size: 0.95rem;
+      }
+      .Price {
+        font-size: 0.85rem;
+        color: #2d5a27; /* tnature primary color usually */
+        font-weight: 600;
+      }
+    }
+  }
+
+  .NoResults {
+    padding: 16px;
+    text-align: center;
+    color: #6c757d;
   }
 }

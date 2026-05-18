@@ -12,6 +12,9 @@ import { ToastContainer } from "react-toastify";
 import Layout from "@/components/layout/layout";
 import { FONTS } from "@/styles/fonts";
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
+import { AppProvider } from "@/context/AppContext";
+import { AuthProvider } from "@/context/AuthContext";
+import { DataProvider } from "@/context/DataContext";
 
 
 export default function App({ Component, pageProps }) {
@@ -64,12 +67,16 @@ export default function App({ Component, pageProps }) {
         loading ? <LoadingScreen />
           :
           <main className={FONTS.font1}>
-
-            <Layout>
-              <Component {...pageProps} />
-              <ToastContainer position="bottom-right" />
-            </Layout>
-
+            <AuthProvider>
+              <DataProvider>
+                <AppProvider>
+                  <Layout>
+                    <Component {...pageProps} />
+                    <ToastContainer position="bottom-right" />
+                  </Layout>
+                </AppProvider>
+              </DataProvider>
+            </AuthProvider>
           </main>
       }
 

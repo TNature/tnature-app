@@ -2,17 +2,20 @@ import React from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import ProductDetailScreen from "@/components/screens/product_detail/product_detail";
-import { PRODUCTS } from "@/constants/products";
+import { useData } from "@/context/DataContext";
+import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 
 const ProductDetailPage = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  // Find product by ID
-  const product = PRODUCTS.find((p) => p.id.toString() === id);
+  const { products, loading } = useData();
 
-  if (!router.isReady) {
-    return <div>Loading...</div>;
+  // Find product by ID
+  const product = products.find((p) => p.id.toString() === id);
+
+  if (!router.isReady || loading) {
+    return <LoadingScreen />;
   }
 
   if (!product) {

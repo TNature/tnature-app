@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./product_card.module.scss";
-import Image from "next/image";
+import { Image } from "react-bootstrap";
 import { Heart, StarFill, Dash, Plus } from "react-bootstrap-icons";
 
 const ProductCard = ({ product }) => {

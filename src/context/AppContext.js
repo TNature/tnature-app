@@ -1,64 +1,102 @@
-// import { DEFAULT_PREVIEW_DATA } from "@/constants/constants";
-// import { getData } from "@/utils/firebase";
-// import { useRouter } from "next/router";
-// import { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
-// const AppContext = createContext();
+const AppContext = createContext();
 
-// export function AppProvider({ children }) {
-//   const router = useRouter();
-//   const { previewId } = router.query;
+export const AppProvider = ({ children }) => {
+    const [cartItems, setCartItems] = useState([]);
+    const [isCartOpen, setIsCartOpen] = useState(false);
 
-//   const [PREVIEW_DATA, setPreviewData] = useState(null);
-//   const [isLoading, setIsLoading] = useState(true);
+    // Load cart from localStorage on mount
+    useEffect(() => {
+        const savedCart = localStorage.getItem("tnature_cart");
+        if (savedCart) {
+            try {
+                setCartItems(JSON.parse(savedCart));
+            } catch (error) {
+                console.error("Failed to parse cart from localStorage", error);
+            }
+        }
+    }, []);
 
-//   const updateVariables = (variables) => {
-//     const vars = variables || DEFAULT_PREVIEW_DATA.css_variables;
-//     vars.forEach((v) =>
-//       document.documentElement.style.setProperty(v.name, v.value)
-//     );
-//   };
+    // Save cart to localStorage whenever it changes
+    useEffect(() => {
+        localStorage.setItem("tnature_cart", JSON.stringify(cartItems));
+    }, [cartItems]);
 
-//   const fetchPreviewData = async () => {
-//     setIsLoading(true);
+    const toggleCart = () => setIsCartOpen((prev) => !prev);
 
-//     try {
-//       if (previewId) {
-//         const res = await getData("previews", ["id", "==", previewId]);
-//         setPreviewData({ ...DEFAULT_PREVIEW_DATA, ...res });
-//         updateVariables(res?.css_variables);
-//       } else {
-//         setPreviewData(DEFAULT_PREVIEW_DATA);
-//         updateVariables(DEFAULT_PREVIEW_DATA.css_variables);
-//       }
-//     } catch (error) {
-//       console.log(error);
-//       setPreviewData(DEFAULT_PREVIEW_DATA);
-//       updateVariables(DEFAULT_PREVIEW_DATA.css_variables);
-//     } finally {
-//       // Small UX delay
-//       setTimeout(() => setIsLoading(false), 1000);
-//     }
-//   };
+    const addToCart = (product, quantity = 1) => {
+        setCartItems((prevItems) => {
+            const existingItem = prevItems.find((item) => item.id === product.id);
+            if (existingItem) {
+                toast.info(`Updated ${product.name} quantity in cart`);
+                return prevItems.map((item) =>
+                    item.id === product.id
+                        ? { ...item, quantity: item.quantity + quantity }
+                        : item
+                );
+            }
+            toast.success(`Added ${product.name} to cart`);
+            return [...prevItems, { ...product, quantity }];
+        });
+        // setIsCartOpen(true);
+    };
 
-//   useEffect(() => {
-//     fetchPreviewData();
-//   }, [previewId]);
+    const removeFromCart = (productId) => {
+        setCartItems((prevItems) => {
+            const itemToRemove = prevItems.find((item) => item.id === productId);
+            if (itemToRemove) {
+                toast.warn(`Removed ${itemToRemove.name} from cart`);
+            }
+            return prevItems.filter((item) => item.id !== productId);
+        });
+    };
 
-//   return (
-//     <AppContext.Provider
-//       value={{
-//         PREVIEW_DATA,
-//         setPreviewData,
-//         isLoading,
-//         setIsLoading,
-//       }}
-//     >
-//       {children}
-//     </AppContext.Provider>
-//   );
-// }
+    const updateQuantity = (productId, newQuantity) => {
+        if (newQuantity < 1) return;
+        setCartItems((prevItems) =>
+            prevItems.map((item) =>
+                item.id === productId ? { ...item, quantity: newQuantity } : item
+            )
+        );
+    };
 
-// export function useAppContext() {
-//   return useContext(AppContext);
-// }
+    const clearCart = () => {
+        setCartItems([]);
+        toast.info("Cart cleared");
+    };
+
+    const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+    const cartSubtotal = cartItems.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+    );
+
+    return (
+        <AppContext.Provider
+            value={{
+                cartItems,
+                isCartOpen,
+                toggleCart,
+                addToCart,
+                removeFromCart,
+                updateQuantity,
+                clearCart,
+                cartCount,
+                cartSubtotal,
+                setIsCartOpen,
+            }}
+        >
+            {children}
+        </AppContext.Provider>
+    );
+};
+
+export const useAppContext = () => {
+    const context = useContext(AppContext);
+    if (!context) {
+        throw new Error("useAppContext must be used within an AppProvider");
+    }
+    return context;
+};

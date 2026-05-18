@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import styles from "./shop.module.scss";
 import CustomContainer from "@/components/ui/custom_container/custom_container";
 import ProductCard from "@/components/common/product_card/product_card";
-import { PRODUCTS, CATEGORIES } from "@/constants/products";
+import { useData } from "@/context/DataContext";
 import { Search } from "react-bootstrap-icons";
 import FONTS from "@/styles/fonts";
 import { useRouter } from "next/router";
@@ -12,6 +12,45 @@ const ShopScreen = () => {
   const router = useRouter();
 
 
+  //   const generateProductSQL = (products) => {
+  //     return `
+  // INSERT INTO products (
+  //     name,
+  //     image,
+  //     price,
+  //     rating,
+  //     unit,
+  //     category_id,
+  //     is_best_seller
+  // )
+  // VALUES
+  // ${products
+  //         .map((product) => {
+  //           return `(
+  //     '${product.name.replace(/'/g, "''")}',
+  //     '${product.image}',
+  //     ${product.price},
+  //     ${product.rating},
+  //     '${product.unit}',
+  //     (SELECT id FROM categories WHERE name = '${product.category.replace(
+  //             /'/g,
+  //             "''"
+  //           )}'),
+  //     ${product.isBestSeller ? "true" : "false"}
+  // )`;
+  //         })
+  //         .join(",\n")};
+  // `;
+  //   };
+
+  //   // Example usage
+  //   const sql = generateProductSQL(PRODUCTS);
+
+  //   console.log(sql);
+
+
+
+  const { products, categories, loading: dataLoading } = useData();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -25,8 +64,14 @@ const ShopScreen = () => {
     }
   }, [router.isReady, router.query])
 
+
+
+
+
+
+
   const filteredProducts = useMemo(() => {
-    let result = [...PRODUCTS];
+    let result = [...products];
 
     // Filter by Search
     if (searchQuery) {
@@ -50,7 +95,8 @@ const ShopScreen = () => {
     }
 
     return result;
-  }, [searchQuery, selectedCategory, sortBy]);
+  }, [searchQuery, selectedCategory, sortBy, products]);
+
 
   return (
     <div className={styles.ShopScreen}>
@@ -89,13 +135,13 @@ const ShopScreen = () => {
             >
               All
             </button>
-            {CATEGORIES.map((cat) => (
+            {categories.map((cat) => (
               <button
-                key={cat}
-                className={`${styles.tab} ${selectedCategory === cat ? styles.active : ""}`}
-                onClick={() => setSelectedCategory(cat)}
+                key={cat.id}
+                className={`${styles.tab} ${selectedCategory === cat.name ? styles.active : ""}`}
+                onClick={() => setSelectedCategory(cat.name)}
               >
-                {cat}
+                {cat.name}
               </button>
             ))}
           </div>

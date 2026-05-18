@@ -21,6 +21,9 @@ import FONTS from "@/styles/fonts";
 import Searchbar from "./search_bar/search_bar";
 import RightMenu from "./menu_button/menu_button";
 import { PAGES } from "@/constants/constants";
+import { useAppContext } from "@/context/AppContext";
+import { useAuth } from "@/context/AuthContext";
+import { Dropdown } from "react-bootstrap";
 
 const DropDownItem = ({ item, setParentDropdown }) => {
   const [showSubDropDown, setShowSubDropDown] = useState(false);
@@ -116,6 +119,9 @@ const NavItem = ({ item }) => {
 };
 
 export const RightButtons = ({ setShowSearchbar }) => {
+  const { toggleCart, cartCount } = useAppContext();
+  const { user, signOut } = useAuth();
+
   return (
     <div className={styles.right}>
       <div>
@@ -127,13 +133,35 @@ export const RightButtons = ({ setShowSearchbar }) => {
               }}
             />
           </div>
-          <div>
-            <Person />
-          </div>
-          <div>
-            <Cart2 />
-          </div>
 
+          {user ? (
+            <Dropdown className={styles.userDropdown}>
+              <Dropdown.Toggle as="div" className={styles.dropdownIcon}>
+                <Person />
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu align="end">
+                <Dropdown.Header>Hi, {user.user_metadata?.full_name || 'User'}</Dropdown.Header>
+                <Dropdown.Item href="/user">My Profile</Dropdown.Item>
+                <Dropdown.Item href="/orders">My Orders</Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item onClick={signOut}>Logout</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          ) : (
+            <div className={styles.cartBtn}>
+              <Link href="/auth">
+                <Person />
+              </Link>
+            </div>
+          )}
+
+          <div className={styles.cartBtn} onClick={toggleCart}>
+            <Cart2 />
+            {cartCount > 0 && (
+              <span className={styles.badge}>{cartCount}</span>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -141,6 +169,8 @@ export const RightButtons = ({ setShowSearchbar }) => {
 }
 
 const Header = () => {
+  const { toggleCart, cartCount } = useAppContext();
+  const { user, signOut } = useAuth();
 
 
   return (
@@ -156,11 +186,32 @@ const Header = () => {
             </div>
             <div>
               <div className={styles.btns}>
-                <div>
-                  <Person />
-                </div>
-                <div>
+                {user ? (
+                  <Dropdown className={styles.userDropdown}>
+                    <Dropdown.Toggle as="div" className={styles.dropdownIcon}>
+                      <Person />
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu align="end">
+                      <Dropdown.Header>Hi, {user.user_metadata?.full_name || 'User'}</Dropdown.Header>
+                      <Dropdown.Item href="/user">My Profile</Dropdown.Item>
+                      <Dropdown.Item href="/orders">My Orders</Dropdown.Item>
+                      <Dropdown.Divider />
+                      <Dropdown.Item onClick={signOut}>Logout</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                ) : (
+                  <div className={styles.cartBtn}>
+                    <Link href="/auth">
+                      <Person />
+                    </Link>
+                  </div >
+                )}
+                <div className={styles.cartBtn} onClick={toggleCart}>
                   <Cart2 />
+                  {cartCount > 0 && (
+                    <span className={styles.badge}>{cartCount}</span>
+                  )}
                 </div>
 
               </div>

@@ -1,0 +1,220 @@
+.CheckoutScreen {
+  padding: 60px 0;
+  background-color: #f8fcf8;
+  min-height: calc(100vh - 100px);
+}
+
+.backLink {
+  margin-bottom: 20px;
+  a {
+    color: #777;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #2d5a27;
+    }
+  }
+}
+
+.checkoutForm {
+  background: #fff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+
+  @media (max-width: 576px) {
+    padding: 25px;
+  }
+}
+
+.section {
+  .sectionHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+
+    .icon {
+      width: 35px;
+      height: 35px;
+      background: #f0f7f0;
+      color: #2d5a27;
+      border-radius: 8px;
+      @include flexCenter;
+      font-size: 1.1rem;
+    }
+
+    h4 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 700;
+      flex-grow: 1;
+    }
+
+    .addBtn {
+      font-weight: 600;
+      color: #2d5a27;
+      text-decoration: none;
+      padding: 0;
+      font-size: 0.9rem;
+
+      &:hover {
+        color: #23471e;
+      }
+    }
+  }
+}
+
+.addressGrid {
+  min-height: 100px;
+}
+
+.addressCard {
+  border: 1px solid #eee;
+  padding: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: 100%;
+  position: relative;
+
+  &:hover {
+    border-color: #2d5a27;
+    background: #fcfdfc;
+  }
+
+  &.selected {
+    border-color: #2d5a27;
+    background: #f0f7f0;
+    box-shadow: 0 4px 15px rgba(45, 90, 39, 0.1);
+  }
+
+  .cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+
+    .name {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #333;
+    }
+
+    .checkIcon {
+      color: #2d5a27;
+      font-size: 1.1rem;
+    }
+  }
+
+  .phone {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 5px;
+  }
+
+  .addressText {
+    font-size: 0.85rem;
+    color: #555;
+    line-height: 1.5;
+    margin: 0;
+  }
+}
+
+.noAddress {
+  text-align: center;
+  padding: 40px 20px;
+  background: #fcfcfc;
+  border-radius: 15px;
+  border: 2px dashed #eee;
+
+  p {
+    color: #777;
+    margin-bottom: 20px;
+  }
+}
+
+.paymentOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.paymentOption {
+  border: 1px solid #eee;
+  padding: 15px 20px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    border-color: #2d5a27;
+    background-color: #fcfdfc;
+  }
+
+  &.active {
+    border-color: #2d5a27;
+    background-color: #f0f7f0;
+  }
+
+  :global(.form-check-input:checked) {
+    background-color: #2d5a27;
+    border-color: #2d5a27;
+  }
+
+  :global(.form-check-label) {
+    cursor: pointer;
+    font-weight: 500;
+    width: 100%;
+  }
+}
+
+.orderSummary {
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 100px;
+}
+
+.itemImage {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #eee;
+  flex-shrink: 0;
+}
+
+.itemList {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #eee;
+    border-radius: 10px;
+  }
+}
+
+.totals {
+  border-top: 2px dashed #eee;
+  padding-top: 20px;
+
+  span {
+    color: #555;
+    font-size: 1rem;
+  }
+
+  .fw-bold {
+    color: #333;
+  }
+}

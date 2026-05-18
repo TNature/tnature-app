@@ -10,6 +10,7 @@ import { Headphones, Headset, Whatsapp } from "react-bootstrap-icons";
 import { Image } from "react-bootstrap";
 import Link from "next/link";
 import Footer from "./Footer/Footer";
+import Cart from "./Cart/Cart";
 
 const EnquireButton = ({ setShow }) => {
   return (
@@ -55,6 +56,7 @@ const Layout = ({ children }) => {
       <Header />
       <SubHeader />
       {children}
+      <Cart />
 
 
       <Footer />

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import styles from "./product_detail.module.scss";
 import CustomContainer from "@/components/ui/custom_container/custom_container";
-import Image from "next/image";
+import { Image } from "react-bootstrap";
 import { StarFill, CartPlus, ShieldCheck, Truck, ArrowRepeat, Leaf } from "react-bootstrap-icons";
 import FONTS from "@/styles/fonts";
+import { useAppContext } from "@/context/AppContext";
 
 const ProductDetailScreen = ({ product }) => {
+  const { addToCart } = useAppContext();
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("description");
 
@@ -66,7 +68,10 @@ const ProductDetailScreen = ({ product }) => {
                 <button onClick={() => handleQuantityChange("inc")}>+</button>
               </div>
 
-              <button className={styles.addToCart}>
+              <button
+                className={styles.addToCart}
+                onClick={() => addToCart(product, quantity)}
+              >
                 <CartPlus size={22} />
                 Add to Cart
               </button>
@@ -137,8 +142,8 @@ const ProductDetailScreen = ({ product }) => {
                   This ensures that the natural enzymes and minerals are preserved, giving you a product that is not just delicious but also highly nutritious.
                 </p>
                 <p>
-                  We believe in transparency and sustainability. That's why every batch of our {product.category} is tested for purity and quality.
-                  When you choose TNature, you're choosing health, tradition, and nature in its purest form.
+                  We believe in transparency and sustainability. That&apos;s why every batch of our {product.category} is tested for purity and quality.
+                  When you choose TNature, you&apos;re choosing health, tradition, and nature in its purest form.
                 </p>
               </div>
             )}

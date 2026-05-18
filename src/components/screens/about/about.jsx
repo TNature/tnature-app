@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import { Image } from "react-bootstrap";
 import styles from "./about.module.scss";
 import CustomContainer from "@/components/ui/custom_container/custom_container";
 import FONTS from "@/styles/fonts";
@@ -22,11 +22,11 @@ const AboutScreen = () => {
         <CustomContainer lg>
           <div className={styles.storyGrid}>
             <div className={styles.imageWrapper} data-aos="fade-right">
-              <Image 
-                src="/products/Honey Products/hill-honey-500g.jpeg" 
-                alt="Natural Purity" 
-                width={600} 
-                height={400} 
+              <Image
+                src="/products/Honey Products/hill-honey-500g.jpeg"
+                alt="Natural Purity"
+                width={600}
+                height={400}
                 className={styles.image}
               />
             </div>
@@ -104,11 +104,11 @@ const AboutScreen = () => {
               </div>
             </div>
             <div className={styles.imageWrapper} data-aos="fade-left">
-              <Image 
-                src="/products/Millet Laddu/pearl-millet-laddu-box.jpeg" 
-                alt="Quality Promise" 
-                width={600} 
-                height={400} 
+              <Image
+                src="/products/Millet Laddu/pearl-millet-laddu-box.jpeg"
+                alt="Quality Promise"
+                width={600}
+                height={400}
                 className={styles.image}
               />
             </div>

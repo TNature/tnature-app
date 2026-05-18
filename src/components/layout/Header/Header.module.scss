@@ -98,13 +98,53 @@
     display: flex;
     gap: 12px;
 
-    >div {
+    >div, .userDropdown {
       background-color: $color_grey_1;
       height: 40px;
       width: 40px;
       @include flexCenter;
       border-radius: 50%;
       cursor: pointer;
+      position: relative;
+
+      &.userDropdown {
+        padding: 0;
+        
+        .dropdownIcon {
+          width: 100%;
+          height: 100%;
+          @include flexCenter;
+        }
+
+        :global(.dropdown-toggle::after) {
+          display: none;
+        }
+
+        :global(.dropdown-menu) {
+          margin-top: 10px !important;
+          border: none;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          border-radius: 12px;
+          padding: 10px 0;
+
+          .dropdown-header {
+            font-weight: 700;
+            color: #333;
+            padding: 10px 20px;
+          }
+
+          .dropdown-item {
+            padding: 8px 20px;
+            font-weight: 500;
+            color: #555;
+
+            &:hover {
+              background-color: #f8f8f8;
+              color: $color_primary_1;
+            }
+          }
+        }
+      }
 
       svg {
         font-size: 20px;
@@ -112,6 +152,23 @@
 
       &:hover {
         background-color: $color_text_grey2;
+      }
+
+      &.cartBtn {
+        .badge {
+          position: absolute;
+          top: -5px;
+          right: -5px;
+          background-color: $color_primary_1;
+          color: white;
+          border-radius: 50%;
+          width: 20px;
+          height: 20px;
+          font-size: 11px;
+          font-weight: 700;
+          @include flexCenter;
+          border: 2px solid white;
+        }
       }
     }
   }

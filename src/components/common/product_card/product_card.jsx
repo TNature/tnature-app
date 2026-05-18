@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import styles from "./product_card.module.scss";
-import Image from "next/image";
-import { Heart, Star, Bag, HeartFill } from "react-bootstrap-icons";
+import { Image } from "react-bootstrap";
+import { Heart, Star, Bag, HeartFill, CheckLg } from "react-bootstrap-icons";
 import Link from "next/link";
+import { useAppContext } from "@/context/AppContext";
 
 const ProductCard = ({ product }) => {
-
+  const { addToCart, cartItems } = useAppContext();
   const [isLiked, setIsLiked] = useState(false)
+
+  const isInCart = cartItems.find((item) => item.id === product.id);
 
   return (
     <div className={styles.productCard} data-aos="fade-up">
@@ -33,6 +36,7 @@ const ProductCard = ({ product }) => {
         <Link href={`/product/${product.id}`}>
           <h3 className={styles.title}>{product.name}</h3>
         </Link>
+        <div className={styles.unit}>{product.unit}</div>
 
         <div className={styles.bottomSection}>
           <div className={styles.details}>
@@ -46,8 +50,12 @@ const ProductCard = ({ product }) => {
             </div>
           </div>
 
-          <button className={styles.cartBtn} aria-label="Add to cart">
-            <Bag />
+          <button
+            className={`${styles.cartBtn} ${isInCart ? styles.isInCart : ""}`}
+            aria-label={isInCart ? "In cart" : "Add to cart"}
+            onClick={() => addToCart(product)}
+          >
+            {isInCart ? <CheckLg /> : <Bag />}
           </button>
         </div>
       </div>

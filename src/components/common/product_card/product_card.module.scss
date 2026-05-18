@@ -89,7 +89,7 @@
         font-size: 1.1rem;
         font-weight: 500;
         color: #333;
-        margin: 0 0 12px 0;
+        margin: 0;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
@@ -100,6 +100,12 @@
           color: $color_primary_1;
         }
       }
+    }
+
+    .unit {
+      font-size: 0.85rem;
+      color: #777;
+      margin-bottom: 12px;
     }
 
 
@@ -153,6 +159,13 @@
 
           svg {
             color: #111;
+          }
+        }
+
+        &.isInCart {
+          background-color: #2d5a27;
+          svg {
+            color: white;
           }
         }
       }

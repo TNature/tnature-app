@@ -9,13 +9,43 @@
 
     }
 
-    .WhatsappButton {
+    .WhatsappButtonWrapper {
         position: fixed;
         bottom: 20px;
-        left: 20px;
+        right: 20px;
         z-index: 1000;
+        display: flex;
+        gap: 15px;
+        flex-direction: column;
+    }
+
+    .WhatsappButton {
+
         cursor: pointer;
         width: fit-content;
+
+        background-color: white;
+        height: 50px;
+        aspect-ratio: 1 / 1;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 50%;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    }
+
+
+    .scrollTopButton {
+        height: 40px;
+        width: 40px;
+        @include flexCenter;
+        border-radius: 50%;
+        background-color: $color_secondary_1;
+        cursor: pointer;
+        color: white;
+        margin: auto;
     }
 
     @include respond-below(md) {

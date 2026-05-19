@@ -6,6 +6,7 @@ export const CONTACT_DETAILS = {
   whatsapp1: {
     number: "919962100660",
     text: "+91 99621 00660",
+
     message: "Hello%2C%20I%20would%20like%20to%20know%20more%20about%20your%20products.",
   },
   emails: ["sales@tnature.com"],

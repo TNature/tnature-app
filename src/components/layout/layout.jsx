@@ -6,7 +6,7 @@ import SubHeader from "./Header/sub_header/sub_header";
 import EnquiryModal from "../common/enquiry_modal/enquiry_modal";
 import CustomButton from "../ui/custom_button/custom_button";
 import styles from "./layout.module.scss";
-import { Headphones, Headset, Whatsapp } from "react-bootstrap-icons";
+import { ChevronUp, Headphones, Headset, Whatsapp } from "react-bootstrap-icons";
 import { Image } from "react-bootstrap";
 import Link from "next/link";
 import Footer from "./Footer/Footer";
@@ -24,13 +24,26 @@ const EnquireButton = ({ setShow }) => {
 };
 const WhatsappButton = ({ setShow }) => {
   return (
-    <Link
-      href={`https://wa.me/${CONTACT_DETAILS.whatsapp1.number}?text=${CONTACT_DETAILS.whatsapp1.message}`}
-      target="_blank"
-      className={styles.WhatsappButton}
-    >
-      <Image src="/assets/whatsapp-icon.png" alt="whatsapp" width={50} />
-    </Link>
+    <div className={styles.WhatsappButtonWrapper}>
+      <Link
+        href={`https://wa.me/${CONTACT_DETAILS.whatsapp1.number}?text=${CONTACT_DETAILS.whatsapp1.message}`}
+        target="_blank"
+        className={styles.WhatsappButton}
+      >
+        <Image src="/WhatsApp.webp" alt="whatsapp" width={45} />
+      </Link>
+      <div className={styles.scrollTopButton}
+        onClick={() => {
+
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        }}
+      >
+        <ChevronUp />
+      </div>
+    </div>
   );
 };
 
@@ -65,6 +78,7 @@ const Layout = ({ children }) => {
 
   return (
     <div className={styles.Layout}>
+      <WhatsappButton />
       <Header />
       <SubHeader />
       {children}

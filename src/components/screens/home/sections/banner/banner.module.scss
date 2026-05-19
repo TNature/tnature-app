@@ -1,5 +1,4 @@
 .BannerSection {
-
   padding: 40px 0;
 
   .wrap {
@@ -72,16 +71,20 @@
     @include respond-below(md) {
       grid-template-columns: 1fr;
 
+      .left {
+        .box {
+          .img {
+            img {
+              height: 400px;
+            }
+          }
+        }
+      }
+
       .box {
         display: flex;
         flex-direction: column;
         height: fit-content !important;
-
-        .img {
-          img {
-            height: 350px;
-          }
-        }
       }
     }
   }

@@ -21,8 +21,9 @@ const BannerSection = () => {
               <div className={styles.text}>
                 <h4 className={FONTS.font3}>100% Natural</h4>
                 <h1>
-                  Jaggery Powder <br />
-                  (Naatusakkarai)
+                  Jaggery & <br />
+                  Jaggery Powder
+
                 </h1>
                 <p>
                   Experience the purest sweetness derived directly from nature. Perfect for your healthy lifestyle.
@@ -30,7 +31,7 @@ const BannerSection = () => {
                 <CustomButton>Shop Now</CustomButton>
               </div>
               <div className={styles.img}>
-                <Image src="/products/Jaggery/jaggery-powder.png" fluid alt="jaggery" />
+                <Image src="/products/Jaggery/jaggery.png" fluid alt="jaggery" />
               </div>
             </div>
           </div>
@@ -52,7 +53,7 @@ const BannerSection = () => {
                 </p>
               </div>
               <div className={styles.img}>
-                <Image src="/products/Millet Laddu/pearl-millet-laddu-jar.png" fluid alt="millet laddu" />
+                <Image src="/products/millet-jars.png" fluid alt="millet laddu" />
               </div>
             </div>
             <div

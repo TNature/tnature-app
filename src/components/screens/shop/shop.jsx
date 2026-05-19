@@ -67,7 +67,7 @@ const ShopScreen = () => {
       className={styles.ShopScreen}
       ref={bodyRef}
     >
-      <CustomContainer lg>
+      <CustomContainer >
         <header className={styles.header}>
           <h1 className={FONTS.font3}>Our Shop</h1>
           <p>Discover our range of 100% natural and traditional products</p>

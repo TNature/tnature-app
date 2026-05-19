@@ -26,8 +26,7 @@ const ProductCard = ({ product }) => {
           <Image
             src={product.image}
             alt={product.name}
-            width={250}
-            height={250}
+
             className={styles.image}
           />
         </Link>

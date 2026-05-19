@@ -3,18 +3,59 @@
   background-color: #fdfdfd;
 
   .containerWrapper {
-
-    border: 1px solid #e0e0e0;
+    border: 1px solid rgb(168, 168, 168);
     padding: 30px;
     border-radius: 12px;
+
+    @include respond-below(md) {
+      padding: 15px;
+    }
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  .title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #111;
+    margin: 0;
+
+    @media (max-width: 768px) {
+      font-size: 22px;
+    }
+  }
+
+  .viewAllBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 18px;
+    border: 1px solid $color_secondary_1;
+    color: $color_secondary_1 !important;
+    background-color: transparent;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background-color: $color_secondary_1;
+      color: #fff !important;
+      text-decoration: none;
+    }
   }
 
   .productGrid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 30px;
-    margin-top: 50px;
-
+    margin-top: 20px;
 
     @media (max-width: 1200px) {
       grid-template-columns: repeat(3, 1fr);
@@ -27,35 +68,7 @@
 
     @media (max-width: 576px) {
       grid-template-columns: 1fr;
-      margin-top: 30px;
-    }
-  }
-
-  .btnWrapper {
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-
-    @media (max-width: 768px) {
-      margin-top: 40px;
-    }
-  }
-
-  .browseBtn {
-    padding: 14px 40px;
-    background-color: $color_primary_1;
-    color: #fff !important;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 1.05rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba($color_primary_1, 0.25);
-    text-decoration: none;
-
-    &:hover {
-      background-color: #d1141c; // Slightly darker than #ed1b24
-      box-shadow: 0 8px 25px rgba($color_primary_1, 0.35);
-      transform: translateY(-3px);
+      margin-top: 15px;
     }
   }
 }

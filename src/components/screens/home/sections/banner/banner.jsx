@@ -49,7 +49,8 @@ const BannerSection = () => {
                   Millet Laddu
                 </h1>
                 <p>
-                  Traditional healthy snacks made with organic millets.
+                 Traditional healthy snacks crafted from organically grown millets, combining authentic taste, natural nutrition, and wholesome ingredients to deliver a delicious and guilt-free snacking experience for every age group.
+
                 </p>
               </div>
               <div className={styles.img}>

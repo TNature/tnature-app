@@ -8,7 +8,6 @@ import FONTS from "@/styles/fonts";
 import { useRouter } from "next/router";
 
 const ShopScreen = () => {
-
   const router = useRouter();
   const { products, categories, loading: dataLoading } = useData();
 
@@ -18,7 +17,6 @@ const ShopScreen = () => {
   const bodyRef = useRef(null);
 
   useEffect(() => {
-
     bodyRef.current?.scrollIntoView({ behavior: "smooth" });
 
     if (!router.isReady) return;
@@ -29,8 +27,7 @@ const ShopScreen = () => {
     if (search) {
       setSearchQuery(search);
     }
-  }, [router.isReady, router.query])
-
+  }, [router.isReady, router.query]);
 
   const filteredProducts = useMemo(() => {
     let result = [...products];
@@ -38,7 +35,7 @@ const ShopScreen = () => {
     // Filter by Search
     if (searchQuery) {
       result = result.filter((p) =>
-        p.name.toLowerCase().includes(searchQuery.toLowerCase())
+        p.name.toLowerCase().includes(searchQuery.toLowerCase()),
       );
     }
 
@@ -59,15 +56,9 @@ const ShopScreen = () => {
     return result;
   }, [searchQuery, selectedCategory, sortBy, products]);
 
-
-
-
   return (
-    <div
-      className={styles.ShopScreen}
-      ref={bodyRef}
-    >
-      <CustomContainer >
+    <div className={styles.ShopScreen} ref={bodyRef}>
+      <CustomContainer>
         <header className={styles.header}>
           <h1 className={FONTS.font3}>Our Shop</h1>
           <p>Discover our range of 100% natural and traditional products</p>
@@ -86,7 +77,10 @@ const ShopScreen = () => {
             </div>
 
             <div className={styles.sortDropdown}>
-              <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+              >
                 <option value="default">Sort by: Default</option>
                 <option value="price-low">Price: Low to High</option>
                 <option value="price-high">Price: High to Low</option>
@@ -122,7 +116,10 @@ const ShopScreen = () => {
           ) : (
             <div className={styles.noResults}>
               <h3>No products found</h3>
-              <p>Try adjusting your search or filter to find what you&apos;re looking for.</p>
+              <p>
+                Try adjusting your search or filter to find what you&apos;re
+                looking for.
+              </p>
             </div>
           )}
         </main>

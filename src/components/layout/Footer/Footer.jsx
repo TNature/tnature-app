@@ -148,7 +148,7 @@ const Footer = () => {
       <div className={styles.footerBottom}>
         <Container>
           <div className={styles.bottomInner}>
-            <p>T Nature © Copyright 2024 | All Rights Reserved.</p>
+            <p>T Nature © Copyright 2026 | All Rights Reserved.</p>
           </div>
         </Container>
       </div>

@@ -15,6 +15,7 @@ const OffersSection = () => {
             image="/products/Honey Products/hill-honey.png"
             bgColor="#f9ebe7"
             aosDelay={0}
+            href="/shop?category=Honey Products"
           />
           <OfferBox
             tag="Upto 25% Off"
@@ -23,6 +24,7 @@ const OffersSection = () => {
             image="/products/Millet Cookies/millet-ghee-cookies.png"
             bgColor="#e6f3fa"
             aosDelay={150}
+            href="/shop?category=Millet Cookies"
           />
         </div>
       </CustomContainer>

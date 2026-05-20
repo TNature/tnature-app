@@ -3,6 +3,7 @@ import styles from "./offer_box.module.scss";
 import { Image } from "react-bootstrap";
 import CustomButton from "@/components/ui/custom_button/custom_button";
 import FONTS from "@/styles/fonts";
+import Link from "next/link";
 
 const OfferBox = ({
   tag,
@@ -12,6 +13,7 @@ const OfferBox = ({
   bgColor,
   btnText = "Show Now",
   aosDelay = 0,
+  href
 }) => {
   return (
     <div
@@ -24,7 +26,9 @@ const OfferBox = ({
         <h4 className={FONTS.font3}>{tag}</h4>
         <h1>{title}</h1>
         <p>{description}</p>
+        <Link href={href}>
         <CustomButton className={styles.btn}>{btnText}</CustomButton>
+        </Link>
       </div>
       <div className={styles.img}>
         <Image src={image} fluid alt={title} />

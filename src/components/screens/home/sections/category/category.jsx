@@ -13,9 +13,7 @@ const CategorySection = () => {
 
   return (
     <section className={styles.category}>
-      <CustomContainer>
-        <SectionHeading head={"Shop By Category"} />
-        <div className={styles.categoryGrid}>
+           <div className={styles.categoryGrid}>
           {categories.map((cat) => (
             <Link
               href={`/shop?category=${encodeURIComponent(cat.name)}`}
@@ -39,7 +37,6 @@ const CategorySection = () => {
             </Link>
           ))}
         </div>
-      </CustomContainer>
     </section>
   );
 };

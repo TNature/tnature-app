@@ -10,9 +10,9 @@ const HomeScreen = () => {
     <>
       <BannerSection />
       <BestSellersSection />
-      <OffersSection />
-      <CategorySection />
-      <NewsletterSection />
+      
+      
+      
     </>
   );
 };

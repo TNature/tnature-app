@@ -14,6 +14,9 @@ const ProductCard = ({ product }) => {
   return (
     <div className={styles.productCard} data-aos="fade-up">
       <div className={styles.imageWrapper}>
+        {
+          product.is_best_seller && <div className={styles.tag}>Best Seller</div>
+        }
         <button className={`${styles.wishlistBtn} ${isLiked ? styles.liked : ""}`} aria-label="Add to wishlist" onClick={() => { setIsLiked(!isLiked) }}>
           {
             isLiked ?

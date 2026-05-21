@@ -5,6 +5,7 @@ import ProductCard from "@/components/common/product_card/product_card";
 import Link from "next/link";
 import { useData } from "@/context/DataContext";
 import FONTS from "@/styles/fonts";
+import CategorySection from "../category/category";
 
 const BestSellersSection = () => {
   const { products, loading } = useData();
@@ -13,25 +14,64 @@ const BestSellersSection = () => {
   if (loading) return null;
 
   return (
-    <section className={styles.bestSellers}>
-      <CustomContainer>
-        <div className={styles.containerWrapper}>
-          <div className={styles.header}>
-            <h2 className={`${FONTS.font1} ${styles.title}`}>Trending Products</h2>
-            <Link href="/shop" className={styles.viewAllBtn}>
-              View all
-            </Link>
+    <>
+      <section className={styles.bestSellers}>
+        <CustomContainer>
+          <div className={styles.containerWrapper}>
+            <div className={styles.header}>
+              <h2 className={`${FONTS.font1} ${styles.title}`}>
+                Our Best Sellers
+              </h2>
+              <Link href="/shop" className={styles.viewAllBtn}>
+                View all
+              </Link>
+            </div>
+            <div className={styles.productGrid}>
+              {bestSellers.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
           </div>
-          <div className={styles.productGrid}>
-            {bestSellers.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+        </CustomContainer>
+      </section>
+
+      <section className={styles.bestSellers}>
+        <CustomContainer>
+          <div className={styles.containerWrapper}>
+            <div className={styles.header}>
+              <h2 className={`${FONTS.font1} ${styles.title}`}>
+                Trending Products
+              </h2>
+              <Link href="/shop" className={styles.viewAllBtn}>
+                View all
+              </Link>
+            </div>
+            <div className={styles.productGrid}>
+              {products.slice(0, 4).map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
           </div>
-        </div>
-      </CustomContainer>
-    </section>
+        </CustomContainer>
+      </section>
+
+      <section className={styles.bestSellers}>
+        <CustomContainer>
+          <div className={styles.containerWrapper}>
+            <div className={styles.header}>
+              <h2 className={`${FONTS.font1} ${styles.title}`}>
+                Shop By Category
+              </h2>
+              <Link href="/shop" className={styles.viewAllBtn}>
+                View all
+              </Link>
+            </div>
+            <CategorySection/>
+          </div>
+        </CustomContainer>
+      </section>
+    </>
   );
 };
 
 export default BestSellersSection;
-

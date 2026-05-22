@@ -1,11 +1,9 @@
-@import "@/styles/scss/variables";
-
 .productCard {
-  background: #fff;
+  background: red;
   border-radius: 24px;
   padding: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-  transition: all 0.3s ease;
+
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -40,7 +38,7 @@
       align-items: center;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
       cursor: pointer;
-      transition: all 0.3s ease;
+
       z-index: 2;
 
       svg {
@@ -60,7 +58,6 @@
       width: 100%;
       height: 200px;
       object-fit: contain;
-      transition: transform 0.5s ease;
 
       @media (max-width: 768px) {
         height: 150px;
@@ -149,7 +146,7 @@
           cursor: pointer;
           color: #555;
           font-size: 1.1rem;
-          transition: all 0.2s;
+
           padding: 0;
 
           &:hover {
@@ -174,7 +171,7 @@
         font-weight: 600;
         font-size: 1.05rem;
         cursor: pointer;
-        transition: all 0.3s ease;
+
         padding: 5px 0;
 
         &:hover {

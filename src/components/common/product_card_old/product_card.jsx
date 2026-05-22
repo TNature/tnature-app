@@ -15,7 +15,7 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className={styles.productCard} data-aos="fade-up">
+    <div className={styles.productCard} >
       <div className={styles.imageWrapper}>
         <button className={styles.wishlistBtn} aria-label="Add to wishlist">
           <Heart />

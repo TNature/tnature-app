@@ -1,4 +1,4 @@
-import { Nunito as Font1 } from "next/font/google";
+import { Poppins as Font1 } from "next/font/google";
 import { Open_Sans as Font2 } from "next/font/google";
 import { EB_Garamond as Font3 } from "next/font/google";
 // import localFont from "next/font/local";

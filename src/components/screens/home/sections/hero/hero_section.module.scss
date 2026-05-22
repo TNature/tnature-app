@@ -1,0 +1,45 @@
+.hero {
+  background-image: url("/banner/banner-bg.jpeg");
+  height: 80vh;
+  background-size: cover;
+
+  .wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    height: 100%;
+    gap: 50px;
+
+    .left {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      // max-width: 750px;
+      gap: 20px;
+
+      h1 {
+        color: $color_secondary_1;
+        font-weight: 600;
+        font-size: 60px;
+        text-transform: uppercase;
+
+        span {
+          color: $color_1;
+        }
+      }
+
+      p {
+        font-size: 17px;
+        color: $color_text_grey;
+      }
+
+      button {
+        width: fit-content;
+      }
+    }
+
+    .right {
+      @include flexCenter;
+    }
+  }
+}

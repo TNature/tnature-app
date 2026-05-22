@@ -3,7 +3,7 @@
 
   .wrap {
     display: grid;
-    grid-template-columns: 1.3fr 1fr;
+    grid-template-columns: 1.5fr 1fr;
     gap: 24px;
 
     .box {
@@ -11,7 +11,7 @@
       height: 100%;
       border-radius: 20px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.5fr 1fr;
       align-items: center;
       padding: 32px;
       gap: 50px;

@@ -7,7 +7,6 @@ import "nprogress/nprogress.css";
 import Router, { useRouter } from "next/router";
 import Head from "next/head";
 
-
 import { ToastContainer } from "react-toastify";
 import Layout from "@/components/layout/layout";
 import { FONTS } from "@/styles/fonts";
@@ -15,7 +14,6 @@ import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 import { AppProvider } from "@/context/AppContext";
 import { AuthProvider } from "@/context/AuthContext";
 import { DataProvider } from "@/context/DataContext";
-
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
@@ -46,15 +44,13 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     if (!isHome) {
-      setLoading(false)
+      setLoading(false);
     } else {
       setTimeout(() => {
         setLoading(false);
       }, 1400);
     }
   }, [isHome]);
-
-
 
   return (
     <>
@@ -63,23 +59,22 @@ export default function App({ Component, pageProps }) {
         <title>T Nature | Home</title>
       </Head>
 
-      {
-        loading ? <LoadingScreen />
-          :
-          <main className={FONTS.font1}>
-            <AuthProvider>
-              <DataProvider>
-                <AppProvider>
-                  <Layout>
-                    <Component {...pageProps} />
-                    <ToastContainer position="bottom-right" />
-                  </Layout>
-                </AppProvider>
-              </DataProvider>
-            </AuthProvider>
-          </main>
-      }
-
+      {loading ? (
+        <LoadingScreen />
+      ) : (
+        <main className={FONTS.font1}>
+          <AuthProvider>
+            <DataProvider>
+              <AppProvider>
+                <Layout>
+                  <Component {...pageProps} loadingScreen={loading}/>
+                  <ToastContainer position="bottom-right" />
+                </Layout>
+              </AppProvider>
+            </DataProvider>
+          </AuthProvider>
+        </main>
+      )}
     </>
   );
 }

@@ -7,10 +7,14 @@ import OffersSection from "./sections/offers/offers";
 import HeroSection from "./sections/hero/hero_section";
 import TestimonialsSection from "./sections/testimonials/testimonials";
 
-const HomeScreen = () => {
+const HomeScreen = ({loadingScreen}) => {
   return (
     <>
-      <HeroSection />
+    {
+      !loadingScreen && 
+    
+      <HeroSection loadingScreen={loadingScreen}/>
+    }
       <BannerSection />
       <BestSellersSection />
       

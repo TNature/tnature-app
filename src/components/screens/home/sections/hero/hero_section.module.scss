@@ -42,4 +42,26 @@
       @include flexCenter;
     }
   }
+
+  @include respond-below(md) {
+    height: fit-content;
+    background-image: url("/banner/banner-bg-v.jpeg");
+    background-position: bottom;
+
+    .wrap {
+      grid-template-columns: 1fr;
+
+      .left {
+        padding-top: 60px;
+
+        h1 {
+          font-size: 50px;
+        }
+
+        p {
+          font-size: 16px;
+        }
+      }
+    }
+  }
 }

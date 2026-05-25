@@ -222,7 +222,7 @@ const Header = () => {
         </div>
         <div className={styles.wrapSm}>
           <div>
-            <Logo width={110} />
+            <Logo  />
             <RightMenu pages={PAGES} />
           </div>
 

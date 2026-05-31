@@ -8,12 +8,15 @@ import { PAGES } from "@/constants/constants";
 import RightMenu from "../menu_button/menu_button";
 import { RightButtons } from "../Header";
 import Searchbar from "../search_bar/search_bar";
-import { CATEGORIES } from "@/constants/products";
+
+import { useData } from "@/context/DataContext";
 
 const SubHeader = () => {
   const router = useRouter();
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const [showSearchbar, setShowSearchbar] = useState(false);
+
+  const { categories = [] } = useData();
 
   return (
     <div className={styles.subHeader}>
@@ -28,16 +31,19 @@ const SubHeader = () => {
               Shop by category <ChevronDown />
             </button>
 
-            {showCategoryDropdown && (
+            {showCategoryDropdown && categories?.[0] && (
               <div className={styles.dropdownMenu}>
                 <ul className={styles.dropdownList}>
-                  {CATEGORIES.map((cat, index) => (
+                  {categories.map((cat, index) => (
                     <li key={index} className={styles.dropdownItem}>
-                      <Link href={`/shop?category=${encodeURIComponent(cat)}`}
+                      <Link
+                        href={`/shop?category=${encodeURIComponent(cat.name)}`}
                         onClick={() => {
-                          setShowCategoryDropdown(false)
+                          setShowCategoryDropdown(false);
                         }}
-                      >{cat}</Link>
+                      >
+                        {cat.name}
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -48,9 +54,15 @@ const SubHeader = () => {
           <nav className={styles.nav}>
             <ul className={styles.navList}>
               {PAGES.map((link, index) => (
-                <li key={index} className={`${styles.navItem} ${router.pathname === link.href ? styles.active : ""}`}>
+                <li
+                  key={index}
+                  className={`${styles.navItem} ${router.pathname === link.href ? styles.active : ""}`}
+                >
                   <Link href={link.href || "#"}>
-                    {link.title} {link.dropdown && <ChevronDown className={styles.dropdownIcon} />}
+                    {link.title}{" "}
+                    {link.dropdown && (
+                      <ChevronDown className={styles.dropdownIcon} />
+                    )}
                   </Link>
                 </li>
               ))}
@@ -61,12 +73,12 @@ const SubHeader = () => {
             <RightButtons setShowSearchbar={setShowSearchbar} />
           </div>
         </div>
-        {
-          showSearchbar && <>
+        {showSearchbar && (
+          <>
             <br />
             <Searchbar />
           </>
-        }
+        )}
       </CustomContainer>
     </div>
   );

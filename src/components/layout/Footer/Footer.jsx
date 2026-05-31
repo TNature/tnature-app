@@ -10,9 +10,10 @@ import {
   CaretRightFill,
 } from "react-bootstrap-icons";
 import { PAGES, LEGAL_PAGES } from "@/constants/constants";
-import { CATEGORIES } from "@/constants/products";
+
 import { CONTACT_DETAILS } from "@/constants/conatct";
 import FONTS from "@/styles/fonts";
+import { useData } from "@/context/DataContext";
 
 const XIcon = () => (
   <svg
@@ -26,7 +27,12 @@ const XIcon = () => (
   </svg>
 );
 
+
+
 const Footer = () => {
+
+  const { categories = [] } = useData();
+
   return (
     <footer className={styles.footer}>
       <Container>
@@ -92,10 +98,10 @@ const Footer = () => {
             </h4>
 
             <ul className={styles.linkList}>
-              {CATEGORIES.map((cat) => (
+              {categories.map((cat) => (
                 <li key={cat}>
-                  <Link href={`/shop?category=${encodeURIComponent(cat)}`}>
-                    <CaretRightFill className={styles.bulletIcon} /> {cat}
+                  <Link href={`/shop?category=${encodeURIComponent(cat.name)}`}>
+                    <CaretRightFill className={styles.bulletIcon} /> {cat.name}
                   </Link>
                 </li>
               ))}

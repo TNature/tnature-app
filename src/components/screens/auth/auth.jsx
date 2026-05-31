@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import styles from "./auth.module.scss";
 import CustomContainer from "@/components/ui/custom_container/custom_container";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import { Person, Envelope, Lock, ArrowRight, Google, Facebook } from "react-bootstrap-icons";
+import {
+  Person,
+  Envelope,
+  Lock,
+  ArrowRight,
+  Google,
+  Facebook,
+} from "react-bootstrap-icons";
 import Link from "next/link";
 import FONTS from "@/styles/fonts";
 import { useAuth } from "@/context/AuthContext";
@@ -44,8 +51,8 @@ const AuthScreen = () => {
         router.push(redirect);
       } else {
         await signUp(formData.email, formData.password, formData.fullName);
-        toast.success("Account created! Please check your email for confirmation.");
-        setIsLogin(true);
+        const redirect = router.query.redirect || "/user";
+        router.push(redirect);
       }
     } catch (error) {
       toast.error(error.message || "An error occurred");
@@ -56,15 +63,16 @@ const AuthScreen = () => {
 
   return (
     <div className={styles.AuthScreen}>
-      <CustomContainer >
+      <CustomContainer>
         <div className={styles.wrapper} data-aos="fade-up">
           <Row className="g-0">
             <Col lg={6} className={styles.infoCol}>
               <div className={styles.infoContent}>
                 <h1 className={FONTS.font3}>Welcome to TNature</h1>
                 <p>
-                  Join our community of nature lovers and get access to exclusive deals,
-                  personalized recommendations, and a seamless shopping experience.
+                  Join our community of nature lovers and get access to
+                  exclusive deals, personalized recommendations, and a seamless
+                  shopping experience.
                 </p>
                 <div className={styles.features}>
                   <div className={styles.feature}>
@@ -94,8 +102,14 @@ const AuthScreen = () => {
             <Col lg={6} className={styles.formCol}>
               <div className={styles.formContent}>
                 <div className={styles.formHeader}>
-                  <h2 className={FONTS.font3}>{isLogin ? "Login" : "Sign Up"}</h2>
-                  <p>{isLogin ? "Glad to see you back!" : "Start your natural journey with us."}</p>
+                  <h2 className={FONTS.font3}>
+                    {isLogin ? "Login" : "Sign Up"}
+                  </h2>
+                  <p>
+                    {isLogin
+                      ? "Glad to see you back!"
+                      : "Start your natural journey with us."}
+                  </p>
                 </div>
 
                 <Form className={styles.form} onSubmit={handleSubmit}>
@@ -161,12 +175,16 @@ const AuthScreen = () => {
                   >
                     {isLoading ? (
                       <Spinner animation="border" size="sm" />
+                    ) : isLogin ? (
+                      "Login"
                     ) : (
-                      isLogin ? "Login" : "Create Account"
+                      "Create Account"
                     )}
                   </Button>
                   <div className={styles.mobileToggle}>
-                    {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
+                    {isLogin
+                      ? "Don't have an account?"
+                      : "Already have an account?"}{" "}
                     <span onClick={toggleAuthMode}>
                       {isLogin ? "Sign Up" : "Login"}
                     </span>

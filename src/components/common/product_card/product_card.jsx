@@ -6,10 +6,10 @@ import Link from "next/link";
 import { useAppContext } from "@/context/AppContext";
 
 const ProductCard = ({ product }) => {
-  const { addToCart, cartItems } = useAppContext();
-  const [isLiked, setIsLiked] = useState(false)
+  const { addToCart, cartItems, wishlistItems, toggleWishlist } = useAppContext();
 
   const isInCart = cartItems.find((item) => item.id === product.id);
+  const isLiked = wishlistItems ? wishlistItems.some((item) => item.id === product.id) : false;
 
   return (
     <div className={styles.productCard} data-aos="fade-up">
@@ -17,7 +17,7 @@ const ProductCard = ({ product }) => {
         {
           product.is_best_seller && <div className={styles.tag}>Best Seller</div>
         }
-        <button className={`${styles.wishlistBtn} ${isLiked ? styles.liked : ""}`} aria-label="Add to wishlist" onClick={() => { setIsLiked(!isLiked) }}>
+        <button className={`${styles.wishlistBtn} ${isLiked ? styles.liked : ""}`} aria-label="Add to wishlist" onClick={() => { toggleWishlist(product) }}>
           {
             isLiked ?
               <HeartFill />

@@ -3,7 +3,17 @@ import styles from "./portal.module.scss";
 import CustomContainer from "@/components/ui/custom_container/custom_container";
 import { useAuth } from "@/context/AuthContext";
 import { supabase } from "@/utils/supabase";
-import { Row, Col, Card, Nav, Button, Table, Spinner, Modal, Form } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Card,
+  Nav,
+  Button,
+  Table,
+  Spinner,
+  Modal,
+  Form,
+} from "react-bootstrap";
 import {
   Person,
   BagCheck,
@@ -13,14 +23,19 @@ import {
   ClockHistory,
   CreditCard,
   PlusLg,
-  Trash
+  Trash,
+  Bookmark,
+  Heart,
 } from "react-bootstrap-icons";
+import { useAppContext } from "@/context/AppContext";
+import ProductCard from "@/components/common/product_card/product_card";
 import FONTS from "@/styles/fonts";
 import Link from "next/link";
-import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 const PortalScreen = () => {
   const { user, signOut } = useAuth();
+  const { wishlistItems, wishlistLoading, addToCart } = useAppContext();
   const [activeTab, setActiveTab] = useState("overview");
   const [orders, setOrders] = useState([]);
   const [addresses, setAddresses] = useState([]);
@@ -52,13 +67,15 @@ const PortalScreen = () => {
     try {
       const { data, error } = await supabase
         .from("orders")
-        .select(`
+        .select(
+          `
           *,
           order_items (
             *,
             products (name)
           )
-        `)
+        `,
+        )
         .order("created_at", { ascending: false });
 
       if (error) throw error;
@@ -86,14 +103,11 @@ const PortalScreen = () => {
     if (!confirm("Are you sure you want to delete this address?")) return;
 
     try {
-      const { error } = await supabase
-        .from("addresses")
-        .delete()
-        .eq("id", id);
+      const { error } = await supabase.from("addresses").delete().eq("id", id);
 
       if (error) throw error;
       toast.success("Address deleted successfully");
-      setAddresses(prev => prev.filter(a => a.id !== id));
+      setAddresses((prev) => prev.filter((a) => a.id !== id));
     } catch (error) {
       toast.error(error.message);
     }
@@ -133,10 +147,15 @@ const PortalScreen = () => {
     }
   };
 
+  const router = useRouter()
+
   if (!user) return null;
 
-  const totalSpent = orders.reduce((sum, order) => sum + Number(order.total_amount), 0);
-  const pendingOrders = orders.filter(o => o.status === "pending").length;
+  const totalSpent = orders.reduce(
+    (sum, order) => sum + Number(order.total_amount),
+    0,
+  );
+  const pendingOrders = orders.filter((o) => o.status === "pending").length;
 
   const renderContent = () => {
     if (isLoading) {
@@ -149,20 +168,78 @@ const PortalScreen = () => {
     }
 
     switch (activeTab) {
+      case "wishlist":
+        return (
+          <div>
+            <h3 className={`${FONTS.font3} mb-4`}>My Wishlist</h3>
+            {wishlistLoading ? (
+              <div className="text-center py-5">
+                <Spinner animation="border" variant="success" />
+                <p className="mt-2 text-muted">Loading your wishlist...</p>
+              </div>
+            ) : wishlistItems && wishlistItems.length > 0 ? (
+              <>
+                <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3 bg-light p-3 rounded-3">
+                  <span className="text-muted fw-semibold">{wishlistItems.length} {wishlistItems.length === 1 ? 'item' : 'items'} in your wishlist</span>
+                  <div className="d-flex gap-2">
+                    <Button 
+                      variant="outline-success" 
+                      onClick={() => {
+                        wishlistItems.forEach(item => addToCart(item));
+                        router.replace('/checkout')
+                      }}
+                    >
+                      Add to Cart & Checkout
+                    </Button>
+                   
+                  </div>
+                </div>
+                <Row className="g-4">
+                  {wishlistItems.map((product) => (
+                    <Col sm={6} md={4} key={product.id}>
+                      <ProductCard product={product} />
+                    </Col>
+                  ))}
+                </Row>
+              </>
+            ) : (
+              <div className="text-center py-5 bg-light rounded-3">
+                <Heart size={40} className="text-muted mb-3" />
+                <h5>Your wishlist is empty</h5>
+                <p className="text-muted">
+                  Add items that you like to your wishlist.
+                </p>
+                <br />
+                <Link href="/shop" passHref>
+                  <Button variant="success">Continue Shopping</Button>
+                </Link>
+              </div>
+            )}
+          </div>
+        );
+
       case "overview":
       case "orders":
         return (
           <div className={styles.overview}>
             {activeTab === "overview" && (
               <>
-                <h3 className={FONTS.font3}>Welcome back, {user.user_metadata?.full_name || 'User'}!</h3>
-                <p>From your account dashboard you can view your recent orders, manage your shipping and billing addresses, and edit your password and account details.</p>
+                <h3 className={FONTS.font3}>
+                  Welcome back, {user.user_metadata?.full_name || "User"}!
+                </h3>
+                <p>
+                  From your account dashboard you can view your recent orders,
+                  manage your shipping and billing addresses, and edit your
+                  password and account details.
+                </p>
 
                 <Row className="mt-4 g-4">
                   <Col md={4}>
                     <Card className={styles.statCard}>
                       <Card.Body>
-                        <div className={styles.iconBox}><BagCheck /></div>
+                        <div className={styles.iconBox}>
+                          <BagCheck />
+                        </div>
                         <h4>Total Orders</h4>
                         <p>{orders.length}</p>
                       </Card.Body>
@@ -171,7 +248,9 @@ const PortalScreen = () => {
                   <Col md={4}>
                     <Card className={styles.statCard}>
                       <Card.Body>
-                        <div className={styles.iconBox}><ClockHistory /></div>
+                        <div className={styles.iconBox}>
+                          <ClockHistory />
+                        </div>
                         <h4>Pending</h4>
                         <p>{pendingOrders}</p>
                       </Card.Body>
@@ -180,7 +259,9 @@ const PortalScreen = () => {
                   <Col md={4}>
                     <Card className={styles.statCard}>
                       <Card.Body>
-                        <div className={styles.iconBox}><CreditCard /></div>
+                        <div className={styles.iconBox}>
+                          <CreditCard />
+                        </div>
                         <h4>Total Spent</h4>
                         <p>₹{totalSpent.toLocaleString()}</p>
                       </Card.Body>
@@ -191,7 +272,9 @@ const PortalScreen = () => {
             )}
 
             <div className={styles.recentOrders}>
-              <h4 className="mt-5 mb-4">{activeTab === "overview" ? "Recent Orders" : "Order History"}</h4>
+              <h4 className="mt-5 mb-4">
+                {activeTab === "overview" ? "Recent Orders" : "Order History"}
+              </h4>
               {orders.length > 0 ? (
                 <Table responsive hover className={styles.orderTable}>
                   <thead>
@@ -207,23 +290,37 @@ const PortalScreen = () => {
                   <tbody>
                     {orders.map((order) => (
                       <tr key={order.id}>
-                        <td className="fw-bold">#{order.id.slice(0, 8).toUpperCase()}</td>
-                        <td>{new Date(order.created_at).toLocaleDateString()}</td>
+                        <td className="fw-bold">
+                          #{order.id.slice(0, 8).toUpperCase()}
+                        </td>
                         <td>
-                          <span className={`${styles.statusBadge} ${styles[order.status]}`}>
-                            {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                          {new Date(order.created_at).toLocaleDateString()}
+                        </td>
+                        <td>
+                          <span
+                            className={`${styles.statusBadge} ${styles[order.status]}`}
+                          >
+                            {order.status.charAt(0).toUpperCase() +
+                              order.status.slice(1)}
                           </span>
                         </td>
                         <td>
-                          <span className={`${styles.statusBadge} ${styles[order.payment_status] || styles.pending}`}>
-                            {order.payment_status ? order.payment_status.charAt(0).toUpperCase() + order.payment_status.slice(1) : 'Pending'}
+                          <span
+                            className={`${styles.statusBadge} ${styles[order.payment_status] || styles.pending}`}
+                          >
+                            {order.payment_status
+                              ? order.payment_status.charAt(0).toUpperCase() +
+                                order.payment_status.slice(1)
+                              : "Pending"}
                           </span>
                         </td>
 
                         <td>₹{Number(order.total_amount).toLocaleString()}</td>
                         <td>
                           <Link href={`/user/order/${order.id}`}>
-                            <Button variant="link" size="sm">View Details</Button>
+                            <Button variant="link" size="sm">
+                              View Details
+                            </Button>
                           </Link>
                         </td>
                       </tr>
@@ -234,8 +331,13 @@ const PortalScreen = () => {
                 <div className="text-center py-5 bg-light rounded-3">
                   <BagCheck size={40} className="text-muted mb-3" />
                   <h5>No orders found</h5>
-                  <p className="text-muted">You haven&apos;t placed any orders yet.</p>
-                  <Button variant="success" href="/shop">Start Shopping</Button>
+                  <p className="text-muted">
+                    You haven&apos;t placed any orders yet.
+                  </p>
+                  <br />
+                  <Button variant="success" href="/shop">
+                    Start Shopping
+                  </Button>
                 </div>
               )}
             </div>
@@ -249,7 +351,7 @@ const PortalScreen = () => {
               <Card.Body className="p-4">
                 <div className="mb-4">
                   <label className="text-muted mb-1">Full Name</label>
-                  <h5>{user.user_metadata?.full_name || 'Not provided'}</h5>
+                  <h5>{user.user_metadata?.full_name || "Not provided"}</h5>
                 </div>
                 <div className="mb-4">
                   <label className="text-muted mb-1">Email Address</label>
@@ -261,7 +363,9 @@ const PortalScreen = () => {
                 </div>
               </Card.Body>
             </Card>
-            <Button variant="primary" className="mt-4">Edit Profile</Button>
+            <Button variant="primary" className="mt-4">
+              Edit Profile
+            </Button>
           </div>
         );
       case "addresses":
@@ -269,7 +373,11 @@ const PortalScreen = () => {
           <div className={styles.addresses}>
             <div className="d-flex justify-content-between align-items-center mb-4">
               <h3 className={FONTS.font3}>My Addresses</h3>
-              <Button variant="success" size="sm" onClick={() => setShowAddModal(true)}>
+              <Button
+                variant="success"
+                size="sm"
+                onClick={() => setShowAddModal(true)}
+              >
                 <PlusLg className="me-1" /> Add New
               </Button>
             </div>
@@ -290,9 +398,12 @@ const PortalScreen = () => {
                             <Trash />
                           </Button>
                         </div>
-                        <p className="mb-1 text-muted small">{addr.phone_number}</p>
+                        <p className="mb-1 text-muted small">
+                          {addr.phone_number}
+                        </p>
                         <p className="mb-0 text-muted small">
-                          {addr.address_line}<br />
+                          {addr.address_line}
+                          <br />
                           {addr.city}, {addr.state} - {addr.pincode}
                         </p>
                       </Card.Body>
@@ -304,8 +415,12 @@ const PortalScreen = () => {
               <div className="text-center py-5 bg-light rounded-3">
                 <GeoAlt size={40} className="text-muted mb-3" />
                 <h5>No addresses saved</h5>
-                <p className="text-muted">Save your addresses for a faster checkout experience.</p>
-                <Button variant="success" onClick={() => setShowAddModal(true)}>Add Address</Button>
+                <p className="text-muted">
+                  Save your addresses for a faster checkout experience.
+                </p>
+                <Button variant="success" onClick={() => setShowAddModal(true)}>
+                  Add Address
+                </Button>
               </div>
             )}
           </div>
@@ -323,10 +438,11 @@ const PortalScreen = () => {
             <div className={styles.sidebar}>
               <div className={styles.userBrief}>
                 <div className={styles.avatar}>
-                  {user.user_metadata?.full_name?.charAt(0) || user.email?.charAt(0)}
+                  {user.user_metadata?.full_name?.charAt(0) ||
+                    user.email?.charAt(0)}
                 </div>
                 <div className={styles.nameInfo}>
-                  <h4>{user.user_metadata?.full_name || 'User'}</h4>
+                  <h4>{user.user_metadata?.full_name || "User"}</h4>
                   <p>{user.email}</p>
                 </div>
               </div>
@@ -337,6 +453,12 @@ const PortalScreen = () => {
                   onClick={() => setActiveTab("overview")}
                 >
                   <BagCheck /> Dashboard
+                </Nav.Link>
+                <Nav.Link
+                  className={activeTab === "wishlist" ? styles.active : ""}
+                  onClick={() => setActiveTab("wishlist")}
+                >
+                  <Heart /> My Wishlist
                 </Nav.Link>
                 <Nav.Link
                   className={activeTab === "orders" ? styles.active : ""}
@@ -364,9 +486,7 @@ const PortalScreen = () => {
           </Col>
 
           <Col lg={9}>
-            <div className={styles.contentArea}>
-              {renderContent()}
-            </div>
+            <div className={styles.contentArea}>{renderContent()}</div>
           </Col>
         </Row>
       </CustomContainer>
@@ -454,9 +574,15 @@ const PortalScreen = () => {
             </Row>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShowAddModal(false)}>Cancel</Button>
+            <Button variant="secondary" onClick={() => setShowAddModal(false)}>
+              Cancel
+            </Button>
             <Button variant="success" type="submit" disabled={isSubmitting}>
-              {isSubmitting ? <Spinner animation="border" size="sm" /> : "Save Address"}
+              {isSubmitting ? (
+                <Spinner animation="border" size="sm" />
+              ) : (
+                "Save Address"
+              )}
             </Button>
           </Modal.Footer>
         </Form>

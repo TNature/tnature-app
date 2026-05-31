@@ -31,15 +31,57 @@ export const AppProvider = ({ children }) => {
         localStorage.setItem("tnature_cart", JSON.stringify(cartItems));
     }, [cartItems]);
 
-    // Fetch wishlist from Supabase
+    // Fetch and Sync Wishlist
     useEffect(() => {
         const fetchWishlist = async () => {
             if (!user) {
-                setWishlistItems([]);
+                // If not logged in, load wishlist from localStorage
+                const savedWishlist = localStorage.getItem("tnature_wishlist");
+                if (savedWishlist) {
+                    try {
+                        const ids = JSON.parse(savedWishlist);
+                        if (Array.isArray(ids) && products.length > 0) {
+                            const items = ids
+                                .map((id) => products.find((p) => p.id === id))
+                                .filter(Boolean);
+                            setWishlistItems(items);
+                        }
+                    } catch (e) {
+                        console.error("Failed to parse localStorage wishlist", e);
+                    }
+                } else {
+                    setWishlistItems([]);
+                }
                 return;
             }
+
             setWishlistLoading(true);
             try {
+                // If logged in, first sync any localStorage items to Supabase
+                const savedWishlist = localStorage.getItem("tnature_wishlist");
+                if (savedWishlist) {
+                    try {
+                        const ids = JSON.parse(savedWishlist);
+                        if (Array.isArray(ids) && ids.length > 0) {
+                            const rows = ids.map(id => ({ user_id: user.id, product_id: id }));
+                            const { error: syncError } = await supabase
+                                .from("wishlist")
+                                .upsert(rows, { onConflict: "user_id,product_id" });
+
+                            if (syncError) {
+                                console.error("Error syncing wishlist:", syncError.message);
+                            } else {
+                                toast.success("Synced local wishlist with your account!");
+                            }
+                        }
+                    } catch (e) {
+                        console.error("Failed to sync localStorage wishlist", e);
+                    } finally {
+                        localStorage.removeItem("tnature_wishlist");
+                    }
+                }
+
+                // Fetch final consolidated wishlist from Supabase
                 const { data, error } = await supabase
                     .from("wishlist")
                     .select("*")
@@ -110,7 +152,17 @@ export const AppProvider = ({ children }) => {
 
     const addToWishlist = async (product) => {
         if (!user) {
-            toast.info("Please log in to add items to your wishlist");
+            // LocalStorage fallback for guests
+            setWishlistItems((prev) => {
+                if (prev.some((item) => item.id === product.id)) {
+                    toast.info(`${product.name} is already in your wishlist`);
+                    return prev;
+                }
+                const newWishlist = [...prev, product];
+                localStorage.setItem("tnature_wishlist", JSON.stringify(newWishlist.map(i => i.id)));
+                toast.success(`${product.name} added to wishlist (guest)`);
+                return newWishlist;
+            });
             return;
         }
 
@@ -135,7 +187,16 @@ export const AppProvider = ({ children }) => {
     };
 
     const removeFromWishlist = async (productId) => {
-        if (!user) return;
+        if (!user) {
+            // Remove from localStorage fallback for guests
+            setWishlistItems((prev) => {
+                const newWishlist = prev.filter((item) => item.id !== productId);
+                localStorage.setItem("tnature_wishlist", JSON.stringify(newWishlist.map(i => i.id)));
+                toast.warn(`Removed item from wishlist`);
+                return newWishlist;
+            });
+            return;
+        }
 
         try {
             const { error } = await supabase
@@ -154,10 +215,6 @@ export const AppProvider = ({ children }) => {
     };
 
     const toggleWishlist = async (product) => {
-        if (!user) {
-            toast.info("Please log in to manage your wishlist");
-            return;
-        }
         const exists = wishlistItems.some((item) => item.id === product.id);
         if (exists) {
             await removeFromWishlist(product.id);

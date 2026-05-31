@@ -13,6 +13,7 @@ import {
   Spinner,
   Modal,
   Form,
+  Badge,
 } from "react-bootstrap";
 import {
   Person,
@@ -455,10 +456,22 @@ const PortalScreen = () => {
                   <BagCheck /> Dashboard
                 </Nav.Link>
                 <Nav.Link
-                  className={activeTab === "wishlist" ? styles.active : ""}
+                  className={`${activeTab === "wishlist" ? styles.active : ""} d-flex align-items-center justify-content-between`}
                   onClick={() => setActiveTab("wishlist")}
                 >
-                  <Heart /> My Wishlist
+                  <span className="d-flex align-items-center gap-2">
+                    <Heart /> My Wishlist
+                  </span>
+                  {wishlistItems && wishlistItems.length > 0 && (
+                    <Badge
+                      pill
+                      bg={activeTab === "wishlist" ? "light" : "success"}
+                      text={activeTab === "wishlist" ? "dark" : "white"}
+                      className="ms-2"
+                    >
+                      {wishlistItems.length}
+                    </Badge>
+                  )}
                 </Nav.Link>
                 <Nav.Link
                   className={activeTab === "orders" ? styles.active : ""}

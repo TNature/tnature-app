@@ -13,11 +13,11 @@ import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
 const CheckoutScreen = () => {
-  const { cartItems, clearCart } = useAppContext();
+  const { cartItems, clearCart,cartSubtotal } = useAppContext();
   const { user } = useAuth();
   const router = useRouter();
 
-  const cartSubtotal = 10;
+  // const cartSubtotal = 10;
 
   const [addresses, setAddresses] = useState([]);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
@@ -359,7 +359,7 @@ const CheckoutScreen = () => {
                       </div>
                       <div className="flex-grow-1">
                         <h6 className="mb-0">{item.name}</h6>
-                        <small className="text-muted">{item.unit} × {item.quantity}</small>
+                        <small className="text-muted">{item.unit} - ₹{item.price} × {item.quantity}</small>
                         <div className="fw-bold mt-1">₹{item.price * item.quantity}</div>
                       </div>
                     </ListGroup.Item>
